@@ -1,0 +1,23 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: kotlin-pod
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kotlin-pod
+  template:
+    metadata:
+      labels:
+        app: kotlin-pod
+    spec:
+      containers:
+        - name: kotlin-backend-service
+          image: moralss/backend-kotlin
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 4567
+      imagePullSecrets:
+        - name: tcg
+
