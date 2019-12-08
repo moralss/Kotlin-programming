@@ -1,20 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="62aaacd2-81e3-4315-aad9-f075dc85f39f" name="Default Changelist" comment="" />
+    <list default="true" id="62aaacd2-81e3-4315-aad9-f075dc85f39f" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
   <component name="ProjectId" id="1TjgkrfUTsLiwmhZq18W1S0FGEy" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/kotlin" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true">
@@ -59,10 +66,10 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state x="466" y="154" width="424" height="484" key="FileChooserDialogImpl" timestamp="1573979751172">
+    <state x="466" y="154" width="424" height="484" key="FileChooserDialogImpl" timestamp="1574791810256">
       <screen x="0" y="27" width="1366" height="741" />
     </state>
-    <state x="466" y="154" width="424" height="484" key="FileChooserDialogImpl/0.27.1366.741@0.27.1366.741" timestamp="1573979751172" />
+    <state x="466" y="154" width="424" height="484" key="FileChooserDialogImpl/0.27.1366.741@0.27.1366.741" timestamp="1574791810256" />
     <state width="1320" height="175" key="GridCell.Tab.0.bottom" timestamp="1573979752182">
       <screen x="0" y="27" width="1366" height="741" />
     </state>
@@ -79,5 +86,9 @@
       <screen x="0" y="27" width="1366" height="741" />
     </state>
     <state width="1320" height="175" key="GridCell.Tab.0.right/0.27.1366.741@0.27.1366.741" timestamp="1573979752182" />
+    <state x="339" y="224" key="com.intellij.ide.util.TipDialog" timestamp="1574791750991">
+      <screen x="0" y="27" width="1366" height="741" />
+    </state>
+    <state x="339" y="224" key="com.intellij.ide.util.TipDialog/0.27.1366.741@0.27.1366.741" timestamp="1574791750991" />
   </component>
 </project>
