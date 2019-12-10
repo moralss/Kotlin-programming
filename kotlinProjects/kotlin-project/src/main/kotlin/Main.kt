@@ -16,36 +16,25 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-class Message(val name: String, val message : String , val uuid: UUID , val date : String);
-data class Person(var uuid :UUID, val name : String, val message : String, var date : String)
-
+class Message(var name: String, var message : String , var uuid: UUID , var date : String);
 
 val gson = Gson()
-val list: ArrayList<Person> = ArrayList()
+val list: ArrayList<Message> = ArrayList()
 
 fun main() {
 
     staticFileLocation("/public")
     webSocket("/chat/", ChatWSHandler::class.java)
     post("/chat/person/") { req, _ ->
-        val currentDate = DateTimeFormatter
-            .ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS")
-            .withZone(ZoneOffset.UTC)
-            .format(Instant.now())
-        val person = gson.fromJson(req.body(), Person::class.java)
-
+        val currentDate = createTimeStap()
+        val message = gson.fromJson(req.body(), Message::class.java)
         val uuid = UUID.randomUUID()
-
-
-        if(person.name.isNullOrEmpty() || person.message.isNullOrEmpty()){
-            halt(400 , "validation error ")
+        if(message.name.isNullOrEmpty() || message.message.isNullOrEmpty()){
+            halt(400 , "please pass the right data ")
         }
-
-        println(uuid);
-        person.date = currentDate;
-        person.uuid = uuid;
-        println(person)
-        list.add(person)
+        message.date = currentDate;
+        message.uuid = uuid;
+        list.add(message)
     }
 
     get("/chat/person/", { req, _ ->
@@ -59,55 +48,56 @@ fun main() {
     delete("/chat/delete/", { req, _ ->
         list.clear()
     }, gson::toJson)
-
-
 }
-
 
 @WebSocket
 class ChatWSHandler {
-
-    val listOfMessage = HashMap<Session, Message>()
+    val messages   : ArrayList<Message> = ArrayList();
+    val sessions: ArrayList<Session> = ArrayList()
 
     @OnWebSocketConnect
     fun connected(session: Session) {
-        session.remote.sendString(jacksonObjectMapper().writeValueAsString(listOfMessage))
+        sessions.add(session);
+        broadcastToAllUsers()
         println("session connected")
     }
 
     @OnWebSocketMessage
     fun message(session: Session, message: String) {
         println("on message")
-        val currentDate = DateTimeFormatter
-            .ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS")
-            .withZone(ZoneOffset.UTC)
-            .format(Instant.now())
-
-
+        val currentDate = createTimeStap();
         val uuid = UUID.randomUUID()
         val json = ObjectMapper().readTree(message)
-        val message = Message(json.get("name").asText() , json.get("message").asText() , uuid , currentDate)
-        listOfMessage.put(session , message);
-        session.remote.sendString(jacksonObjectMapper().writeValueAsString(listOfMessage))
-        println("json msg ${message}")
-
-        emit(session , message)
-        broadcastToOthers(session, message)
+        val message = Message(json.get("name").asText(), json.get("message").asText(), uuid, currentDate)
+            messages.add(message);
+            broadcastToAllUsers()
     }
 
     @OnWebSocketClose
     fun disconnect(session: Session, code: Int, reason: String?) {
         println("disconnect")
+        println(sessions.indexOf(session));
+        sessions.removeAt(sessions.indexOf(session))
     }
 
-    fun emit(session: Session, message: Message) = session.remote.sendString(jacksonObjectMapper().writeValueAsString(message))
-    fun broadcastToOthers(session: Session, message: Message) = listOfMessage.filter{ it.key != session }.forEach {
-    emit(it.key , message);
+    fun broadcastToAllUsers() {
+        sessions.forEach {
+            emit(it);
+        }
+    }
+
+    fun emit(session: Session) {
+        session.remote.sendString(jacksonObjectMapper().writeValueAsString(messages))
+    }
 }
 
-
+private fun createTimeStap(): String {
+    val currentDate = DateTimeFormatter
+        .ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS")
+        .withZone(ZoneOffset.UTC)
+        .format(Instant.now())
+    return currentDate
 }
-
 
 
 
