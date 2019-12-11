@@ -17,12 +17,11 @@ import kotlin.collections.ArrayList
 
 
 class Message(var name: String, var message : String , var uuid: UUID , var date : String);
-
 val gson = Gson()
-val list: ArrayList<Message> = ArrayList()
+val messages  : ArrayList<Message> = ArrayList();
+val listOfMessages :  ArrayList<Message> = ArrayList();
 
 fun main() {
-
     staticFileLocation("/public")
     webSocket("/chat/", ChatWSHandler::class.java)
     post("/chat/person/") { req, _ ->
@@ -34,25 +33,24 @@ fun main() {
         }
         message.date = currentDate;
         message.uuid = uuid;
-        list.add(message)
+        messages.add(message)
     }
 
     get("/chat/person/", { req, _ ->
-        list
+        listOfMessages
     }, gson::toJson)
 
     delete("/chat/person/", { req, _ ->
-        list.clear()
+        listOfMessages.clear()
     }, gson::toJson)
 
     delete("/chat/delete/", { req, _ ->
-        list.clear()
+        messages.clear()
     }, gson::toJson)
 }
 
 @WebSocket
 class ChatWSHandler {
-    val messages   : ArrayList<Message> = ArrayList();
     val sessions: ArrayList<Session> = ArrayList()
 
     @OnWebSocketConnect
@@ -69,6 +67,9 @@ class ChatWSHandler {
         val uuid = UUID.randomUUID()
         val json = ObjectMapper().readTree(message)
         val message = Message(json.get("name").asText(), json.get("message").asText(), uuid, currentDate)
+        if(message.name.isNullOrEmpty() || message.message.isNullOrEmpty()){
+            halt(400 , "please pass the right data ")
+        }
             messages.add(message);
             broadcastToAllUsers()
     }
