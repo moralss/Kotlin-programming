@@ -14,8 +14,7 @@ spec:
     spec:
       containers:
         - name: kotlin-backend-service
-          image: moralss/kotlin-backend-restful
-          imagePullPolicy: IfNotPresent
+          image: moralss/kotlin-websockets
           ports:
             - containerPort: 4567
       imagePullSecrets:

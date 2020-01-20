@@ -17,6 +17,11 @@ dependencies {
     compile 'org.slf4j:slf4j-jdk14:1.7.25'
     compile 'com.google.code.gson:gson:2.8.0'
     compile 'com.fasterxml.jackson.module:jackson-module-kotlin:2.8.4'
+    implementation "io.ktor:ktor-server-jetty:1.2.6"
+    compile 'com.auth0:java-jwt:3.8.1'
+    // https://mvnrepository.com/artifact/io.ktor/ktor-auth
+    compile group: 'io.ktor', name: 'ktor-auth', version: '1.2.6'
+
 }
 
 jar {
