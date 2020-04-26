@@ -4,6 +4,7 @@ import com.budgetapp.app.budget.repositories.BudgetRepository
 import com.budgetapp.app.budget.models.BudgetItem
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import java.lang.Long.parseLong
 
 
 @Service
@@ -19,6 +20,10 @@ public class BudgetService {
 
     fun getAll(): List<BudgetItem?>? {
         return budgetRepository.selectAllBudgets()
+    }
+
+    fun getAllBudgetsById(id : String) : MutableList<BudgetItem>? {
+        return budgetRepository.findById(parseLong(id))
     }
 
     fun addNew(budgetItem: BudgetItem?) {

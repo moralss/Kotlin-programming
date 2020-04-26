@@ -57,6 +57,7 @@ class MonthlyRepository {
                 MonthlyBudget::class.java
         )
     }
+
     fun findByMonthDate(dateBudget: String): MonthlyBudget? {
         if (namedParameterJdbcTemplate != null) {
             return namedParameterJdbcTemplate.queryForObject(

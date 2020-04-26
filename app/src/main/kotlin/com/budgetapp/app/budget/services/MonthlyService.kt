@@ -27,7 +27,6 @@ public class MonthlyService {
     fun addNew(budgetItem: MonthlyBudget?){
         if (budgetItem != null) {
             var id = monthlyRepository.insertMonthly(budgetItem)
-           print("this is my id" + id)
 //            return monthlyRepository.findById(parseLong(parseLong(id)) );
         }
     }

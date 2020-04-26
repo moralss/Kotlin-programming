@@ -9,22 +9,24 @@ import javax.validation.Valid
 @CrossOrigin
 @RestController
 @RequestMapping("api/budget")
-class StudentController @Autowired constructor(budgetService: BudgetService) {
+class BudgetController @Autowired constructor(budgetService: BudgetService) {
     private val budgetService: BudgetService
 
     @GetMapping
-    fun getAllBudgets(): List<BudgetItem?>? {
-        return budgetService.getAll()
+    fun getAllBudgets(@RequestParam id: String) : MutableList<BudgetItem>? {
+        return budgetService.getAllBudgetsById(id)
     }
 
 
     @PostMapping
-    fun addNewStudent(@RequestBody budgetItem: @Valid BudgetItem?) {
+    fun addNewBudget(@RequestBody budgetItem: @Valid BudgetItem?) {
+        if (budgetItem != null) {
+            println("show me" + budgetItem.budgetPrice )
+        }
         if (budgetItem != null) {
             budgetService.addNew(budgetItem)
         }
     }
-
 
     init {
         this.budgetService = budgetService
