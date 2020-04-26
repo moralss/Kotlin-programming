@@ -1,7 +1,4 @@
-package com.budgetapp.app.budget
-
-import org.springframework.stereotype.Component
-import java.text.DecimalFormat
+package com.budgetapp.app.budget.models
 
 data class BudgetItem(
         val budgetId : Int,
@@ -9,9 +6,6 @@ data class BudgetItem(
         val budgetPrice: Double
 )
 {
-    fun Student() {
-
-    }
 
     override fun toString(): String {
         return "Student{" +
@@ -19,9 +13,4 @@ data class BudgetItem(
                 ", lastName='" + budgetPrice + '\'' +
                 '}'
     }
-
-    enum class Gender {
-        MALE, FEMALE
-    }
-
 }

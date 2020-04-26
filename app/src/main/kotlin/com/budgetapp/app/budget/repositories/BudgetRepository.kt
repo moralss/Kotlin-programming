@@ -1,22 +1,18 @@
-package com.budgetapp.app.budget
+package com.budgetapp.app.budget.repositories
 
+import com.budgetapp.app.budget.models.BudgetItem
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.jdbc.core.JdbcTemplate
 import org.springframework.jdbc.core.RowMapper
 import org.springframework.stereotype.Repository
 import java.sql.ResultSet
 
-
-data class Class(val classname : String);
-
-
-
 @Repository
-class BudgetDataAccessService {
+class BudgetRepository {
     private var jdbcTemplate: JdbcTemplate? = null
 
     @Autowired
-    fun BudgetDataAccessService (jdbcTemplate: JdbcTemplate?) {
+    fun BudgetRepository (jdbcTemplate: JdbcTemplate?) {
         this.jdbcTemplate = jdbcTemplate
     }
 
@@ -36,7 +32,7 @@ class BudgetDataAccessService {
     }
 
 
-    fun insertBudgets(budgetItem: BudgetItem): Int {
+    fun insertBudget(budgetItem: BudgetItem): Int {
         val sql = "" +
                 "INSERT INTO budgets (" +
                 " budget_name, " +
