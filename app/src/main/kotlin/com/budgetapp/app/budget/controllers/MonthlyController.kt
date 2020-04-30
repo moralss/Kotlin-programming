@@ -24,6 +24,7 @@ class MonthlyController @Autowired constructor(monthlyService: MonthlyService) {
 
     }
 
+
     @PostMapping
     fun addNewMonthlyBudget(@RequestBody monthlyBudget: @Valid MonthlyBudget?): MonthlyBudget? {
         if (monthlyBudget != null) {
@@ -32,7 +33,6 @@ class MonthlyController @Autowired constructor(monthlyService: MonthlyService) {
         }
 
         return null
-
     }
 
     init {

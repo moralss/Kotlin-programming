@@ -69,5 +69,9 @@ class BudgetRepository {
                 budgetItem.monthlyBudgetId
         )
     }
-
+    fun deleteById(id: Long?): Int {
+        return jdbcTemplate!!.update(
+                "delete from budgets where id = ?",
+                id)
+    }
 }

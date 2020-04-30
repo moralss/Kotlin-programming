@@ -1,7 +1,7 @@
 package com.budgetapp.app.budget.services
 
-import com.budgetapp.app.budget.repositories.BudgetRepository
 import com.budgetapp.app.budget.models.BudgetItem
+import com.budgetapp.app.budget.repositories.BudgetRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import java.lang.Long.parseLong
@@ -30,6 +30,10 @@ public class BudgetService {
         if (budgetItem != null) {
             budgetRepository.insertBudget(budgetItem)
         }
+    }
+
+    fun deleteById( id: String) {
+        budgetRepository.deleteById(parseLong(id))
     }
 
 
