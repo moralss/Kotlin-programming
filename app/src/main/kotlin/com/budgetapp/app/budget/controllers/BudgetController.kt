@@ -14,7 +14,7 @@ class BudgetController @Autowired constructor(budgetService: BudgetService) {
     private val budgetService: BudgetService
 
     @GetMapping
-    fun getAllBudgets(@RequestParam id: String) : MutableList<BudgetItem>? {
+    fun getAllBudgets(@RequestParam id: String): MutableList<BudgetItem>? {
         return budgetService.getAllBudgetsById(id)
     }
 
@@ -25,9 +25,6 @@ class BudgetController @Autowired constructor(budgetService: BudgetService) {
 
     @PostMapping
     fun addNewBudget(@RequestBody budgetItem: @Valid BudgetItem?) {
-        if (budgetItem != null) {
-            println("show me" + budgetItem.budgetPrice )
-        }
         if (budgetItem != null) {
             budgetService.addNew(budgetItem)
         }
