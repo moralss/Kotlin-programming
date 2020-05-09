@@ -65,7 +65,7 @@ class RestSecurityConfig : WebSecurityConfigurerAdapter() {
                 .disable().formLogin().disable().httpBasic().disable().exceptionHandling()
                 .authenticationEntryPoint(restAuthenticationEntryPoint()).and().authorizeRequests()
 //                .antMatchers(HttpMethod.GET).access("#oauth2.hasScope('get')")
-                .antMatchers("/api/budget**").permitAll()
+//                .antMatchers("/api/budget**").permitAll()
                 .anyRequest().authenticated()
         http.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter::class.java)
     }

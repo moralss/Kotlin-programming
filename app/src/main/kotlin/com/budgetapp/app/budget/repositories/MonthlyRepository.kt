@@ -18,8 +18,9 @@ class MonthlyRepository {
 
     @Autowired
     private val namedParameterJdbcTemplate: NamedParameterJdbcTemplate? = null
+
     @Autowired
-    fun MontlyRepository (jdbcTemplate: JdbcTemplate?) {
+    fun MontlyRepository(jdbcTemplate: JdbcTemplate?) {
         this.jdbcTemplate = jdbcTemplate
     }
 
@@ -29,7 +30,9 @@ class MonthlyRepository {
             MonthlyBudget(
                     resultSet.getInt("id"),
                     resultSet.getString("date_budget"),
-                    resultSet.getDouble("month_budget"))
+                    resultSet.getDouble("month_budget"),
+                    resultSet.getString("firebase_user_id")
+            )
         }
 
         var results = jdbcTemplate?.query("SELECT * FROM monthly_budgets", rowMapper);
@@ -61,13 +64,14 @@ class MonthlyRepository {
     fun findByMonthDate(dateBudget: String): MonthlyBudget? {
         if (namedParameterJdbcTemplate != null) {
             return namedParameterJdbcTemplate.queryForObject(
-            "SELECT * FROM monthly_budgets where date_budget = :dateBudget",
+                    "SELECT * FROM monthly_budgets where date_budget = :dateBudget",
                     MapSqlParameterSource("dateBudget", dateBudget)
             ) { rs, rowNum ->
                 (MonthlyBudget(
                         rs.getInt("id"),
                         rs.getString("date_budget"),
-                        rs.getDouble("month_budget")
+                        rs.getDouble("month_budget"),
+                        rs.getString("firebase_user_id")
                 ))
             }
         }

@@ -14,6 +14,7 @@ java.sourceCompatibility = JavaVersion.VERSION_1_8
 repositories {
 	mavenCentral()
 }
+
   extra["springCloudVersion"] = "Hoxton.SR4"
 
 dependencies {
@@ -29,12 +30,12 @@ dependencies {
 		exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
 	}
 // https://mvnrepository.com/artifact/org.springframework.security/spring-security-config
-	implementation("com.google.firebase:firebase-admin:6.12.2")
+	implementation ("com.google.firebase:firebase-admin:6.12.2")
 	implementation("org.springframework.boot:spring-boot-starter-security")
 	implementation("org.projectlombok:lombok")
     implementation("com.google.cloud:google-cloud-storage")
 	implementation("org.springframework.boot:spring-boot-configuration-processor")
-	implementation("org.springframework.cloud:spring-cloud-gcp-starter")
+//	implementation("org.springframework.cloud:spring-cloud-gcp-starter")
 	testImplementation("org.springframework.security:spring-security-test")
 }
 
@@ -44,13 +45,10 @@ tasks.withType<KotlinCompile> {
 		jvmTarget = "1.8"
 	}
 }
-
-tasks.withType<Jar> {
-	// Otherwise you'll get a "No main manifest attribute" error
+val jar by tasks.getting(Jar::class) {
 	manifest {
 		attributes["Main-Class"] = "com.budgetapp.app.AppApplication.kt"
 	}
-
 	// To add all of the dependencies
 	from(sourceSets.main.get().output)
 
@@ -59,13 +57,29 @@ tasks.withType<Jar> {
 		configurations.runtimeClasspath.get().filter { it.name.endsWith("jar") }.map { zipTree(it) }
 	})
 
-	dependencyManagement {
-		imports {
-			mavenBom("org.springframework.cloud:spring-cloud-dependencies:Hoxton.SR4")
-		}
-	}
 }
-
+//
+//tasks.withType<Jar> {
+//	// Otherwise you'll get a "No main manifest attribute" error
+//	manifest {
+//		attributes ["Main-Class"] = "com.budgetapp.app.AppApplication.kt"
+//	}
+//
+//	// To add all of the dependencies
+//	from(sourceSets.main.get().output)
+//
+//	dependsOn(configurations.runtimeClasspath)
+//	from({
+//		configurations.runtimeClasspath.get().filter { it.name.endsWith("jar") }.map { zipTree(it) }
+//	})
+//
+////	dependencyManagement {
+////		imports {
+////			mavenBom("org.springframework.cloud:spring-cloud-dependencies:Hoxton.SR4")
+////		}
+////	}
+//}
+//
 
 
 

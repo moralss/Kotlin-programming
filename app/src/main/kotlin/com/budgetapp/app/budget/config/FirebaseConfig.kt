@@ -5,6 +5,7 @@ import com.google.cloud.firestore.Firestore
 import com.google.cloud.firestore.FirestoreOptions
 import com.google.firebase.FirebaseApp
 import com.google.firebase.FirebaseOptions
+import jdk.nashorn.internal.objects.NativeDebug.getClass
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -22,8 +23,10 @@ class FirebaseConfig {
     @Bean
     @Throws(IOException::class)
     fun firebaseInit() {
+        val classLoader = javaClass.classLoader
+        val serviceAccount =classLoader.getResourceAsStream("buget-app-411e3.json")
         val options = FirebaseOptions.Builder()
-                .setCredentials(GoogleCredentials.getApplicationDefault()).setDatabaseUrl(firebaseDatabaseUrl).build()
+                .setCredentials(GoogleCredentials.fromStream(serviceAccount)).setDatabaseUrl(firebaseDatabaseUrl).build()
         println(options)
         if (FirebaseApp.getApps().isEmpty()) {
             FirebaseApp.initializeApp(options)
@@ -34,8 +37,10 @@ class FirebaseConfig {
     @get:Bean
     val database: Firestore
         get() {
+            val classLoader = javaClass.classLoader
+            val serviceAccount =classLoader.getResourceAsStream("buget-app-411e3.json")
             val firestoreOptions = FirestoreOptions.newBuilder()
-                    .setCredentials(GoogleCredentials.getApplicationDefault()).build()
+                    .setCredentials(GoogleCredentials.fromStream(serviceAccount)).build()
             return firestoreOptions.service
         }
 }

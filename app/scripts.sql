@@ -14,6 +14,7 @@ CREATE TABLE IF NOT EXISTS monthly_budgets(
     id serial PRIMARY KEY,
     date_budget varchar(22) NOT NULL,
     month_budget DECIMAL (10, 2) NOT NULL,
+    firebase_user_id varchar(22) NOT NULL,
     created_at timestamp NOT NULL DEFAULT NOW() NOT NULL,
     updated_at timestamp NOT NULL DEFAULT NOW() NOT NULL
 );
